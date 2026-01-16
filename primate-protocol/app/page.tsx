@@ -13,7 +13,7 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl text-lg text-slate-300">
           Explore towering districts, stun and capture agile creatures, and
-          unlock traversal gadgets as you push deeper into the city's relay
+          unlock traversal gadgets as you push deeper into the city&apos;s relay
           grid. Everything is designed to stay privacy-first with local saves.
         </p>
         <div className="flex flex-wrap gap-4">
