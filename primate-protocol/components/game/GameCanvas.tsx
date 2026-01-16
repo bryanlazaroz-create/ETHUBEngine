@@ -13,6 +13,7 @@ import LevelLoader from "@/components/game/LevelLoader";
 import ThirdPersonController from "@/components/game/ThirdPersonController";
 import Creature from "@/components/game/Creature";
 import GadgetSystem from "@/components/game/GadgetSystem";
+import GameAudio from "@/components/game/GameAudio";
 
 type GameCanvasProps = {
   levelId: string;
@@ -76,6 +77,7 @@ export default function GameCanvas({ levelId }: GameCanvasProps) {
         >
           <Scene levelId={levelId} />
         </Canvas>
+        <GameAudio />
         <HUD />
         <PauseMenu />
       </div>

@@ -4,8 +4,13 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody, type RigidBodyApi } from "@react-three/rapier";
 import { Vector3 } from "three";
-import { useGameStore } from "@/lib/game/state";
+import { useGameStore, type CreatureStatus } from "@/lib/game/state";
 import { GADGET_SETTINGS } from "@/lib/game/constants";
+import {
+  CREATURE_SFX,
+  resolveCreatureAudioKey,
+} from "@/lib/game/audio";
+import { useSoundEffects } from "@/lib/game/useAudio";
 
 type CreatureProps = {
   id: string;
@@ -34,10 +39,44 @@ export default function Creature({
   const wanderAngle = useRef(0);
   const lureTarget = useRef<Vector3 | null>(null);
   const lastEventId = useRef<number | null>(null);
+  const lastStatus = useRef<CreatureStatus | null>(null);
+  const idlePlayed = useRef(false);
+  const { playSfx } = useSoundEffects();
+
+  const creatureAudioKey = useMemo(
+    () => resolveCreatureAudioKey(id),
+    [id]
+  );
 
   useEffect(() => {
     registerCreature(id);
   }, [id, registerCreature]);
+
+  useEffect(() => {
+    if (!creatureState || isPaused) {
+      return;
+    }
+    if (!idlePlayed.current && creatureState.status === "idle") {
+      playSfx(CREATURE_SFX[creatureAudioKey].idle);
+      idlePlayed.current = true;
+    }
+  }, [creatureAudioKey, creatureState, isPaused, playSfx]);
+
+  useEffect(() => {
+    if (!creatureState || isPaused) {
+      return;
+    }
+    const status = creatureState.status;
+    if (lastStatus.current && status !== lastStatus.current) {
+      if (status === "stunned") {
+        playSfx(CREATURE_SFX[creatureAudioKey].stunned);
+      }
+      if (status === "captured") {
+        playSfx(CREATURE_SFX[creatureAudioKey].captured);
+      }
+    }
+    lastStatus.current = status;
+  }, [creatureAudioKey, creatureState, isPaused, playSfx]);
 
   useEffect(() => {
     wanderAngle.current = Math.random() * Math.PI * 2;
