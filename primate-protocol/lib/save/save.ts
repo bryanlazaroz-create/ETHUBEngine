@@ -43,6 +43,12 @@ const bytesToBase64 = (bytes: Uint8Array) => {
   return btoa(binary);
 };
 
+const toArrayBuffer = (bytes: Uint8Array) => {
+  const buffer = new ArrayBuffer(bytes.byteLength);
+  new Uint8Array(buffer).set(bytes);
+  return buffer;
+};
+
 const base64ToBytes = (base64: string) => {
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
@@ -71,7 +77,7 @@ const deriveKey = async (
 ): Promise<CryptoKey> => {
   const keyMaterial = await window.crypto.subtle.importKey(
     "raw",
-    secret,
+    toArrayBuffer(secret),
     { name: "PBKDF2" },
     false,
     ["deriveKey"]
