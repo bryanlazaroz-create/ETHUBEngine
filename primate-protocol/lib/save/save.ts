@@ -85,7 +85,7 @@ const deriveKey = async (
   return window.crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt,
+      salt: toArrayBuffer(salt),
       iterations,
       hash: "SHA-256",
     },
