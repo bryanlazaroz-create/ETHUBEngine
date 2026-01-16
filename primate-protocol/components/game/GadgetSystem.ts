@@ -3,7 +3,7 @@
 import { useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
-import type { RigidBodyApi } from "@react-three/rapier";
+import type { RapierRigidBody } from "@react-three/rapier";
 import {
   GADGETS,
   GADGET_SETTINGS,
@@ -15,7 +15,7 @@ import { useGameStore } from "@/lib/game/state";
 type ControlState = Record<ControlName, boolean>;
 
 type GadgetSystemProps = {
-  playerRef: MutableRefObject<RigidBodyApi | null>;
+  playerRef: MutableRefObject<RapierRigidBody | null>;
 };
 
 const gadgetKeyMap: Record<GadgetId, ControlName> = {
