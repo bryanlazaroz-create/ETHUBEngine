@@ -1,15 +1,6 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { LEVELS } from "@/lib/game/constants";
-
-const GameCanvas = dynamic(() => import("@/components/game/GameCanvas"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex min-h-[60vh] items-center justify-center rounded-3xl border border-slate-800 bg-slate-900/70 text-sm text-slate-300">
-      Loading 3D scene...
-    </div>
-  ),
-});
+import GameCanvas from "@/components/game/GameCanvas";
 
 export default function PlayPage() {
   const level = LEVELS.find((item) => item.id === "level-01");
