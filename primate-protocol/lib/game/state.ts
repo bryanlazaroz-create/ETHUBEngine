@@ -221,3 +221,5 @@ export const selectSaveData = (state: GameState): GameSaveData => ({
     .map((creature) => creature.id),
   capturedCount: state.capturedCount,
 });
+
+export const useSaveData = () => useGameStore(selectSaveData);

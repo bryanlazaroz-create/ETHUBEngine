@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useGameStore, selectSaveData } from "@/lib/game/state";
+import { useGameStore, useSaveData } from "@/lib/game/state";
 import { CONTROLS, GADGETS, LEVELS } from "@/lib/game/constants";
 import { isSaveSupported, loadGame, saveGame } from "@/lib/save/save";
 
@@ -13,7 +13,7 @@ export default function HUD() {
   const lastSaveAt = useGameStore((state) => state.lastSaveAt);
   const applySaveData = useGameStore((state) => state.applySaveData);
   const markSaved = useGameStore((state) => state.markSaved);
-  const saveData = useGameStore(selectSaveData);
+  const saveData = useSaveData();
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
 
   const level = useMemo(
