@@ -135,12 +135,8 @@ export const useGameStore = create<GameState>((set) => ({
       if (!existing || existing.status === "captured") {
         return state;
       }
-      const nextCount =
-        existing.status === "captured"
-          ? state.capturedCount
-          : state.capturedCount + 1;
       return {
-        capturedCount: nextCount,
+        capturedCount: state.capturedCount + 1,
         creatures: {
           ...state.creatures,
           [creatureId]: {
