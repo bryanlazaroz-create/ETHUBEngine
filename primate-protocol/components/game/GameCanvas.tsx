@@ -6,7 +6,7 @@ import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import type { RapierRigidBody } from "@react-three/rapier";
 import { useGameStore } from "@/lib/game/state";
-import { CONTROL_MAP, CREATURES, LEVELS } from "@/lib/game/constants";
+import { CONTROL_MAP, LEVELS } from "@/lib/game/constants";
 import HUD from "@/components/game/HUD";
 import PauseMenu from "@/components/game/PauseMenu";
 import LevelLoader from "@/components/game/LevelLoader";
@@ -18,13 +18,18 @@ type GameCanvasProps = {
   levelId: string;
 };
 
+type CreatureSpawn = {
+  id: string;
+  position: [number, number, number];
+};
+
 const Scene = ({ levelId }: { levelId: string }) => {
   const playerRef = useRef<RapierRigidBody | null>(null);
-  const creatureSpawns = useMemo(
+  const creatureSpawns = useMemo<CreatureSpawn[]>(
     () => [
-      { id: "skitterling-01", position: [-4, 1, -2], type: CREATURES[0] },
-      { id: "bark-bouncer-01", position: [3, 1, -4], type: CREATURES[1] },
-      { id: "inkspawn-01", position: [5, 1, 3], type: CREATURES[2] },
+      { id: "skitterling-01", position: [-4, 1, -2] },
+      { id: "bark-bouncer-01", position: [3, 1, -4] },
+      { id: "inkspawn-01", position: [5, 1, 3] },
     ],
     []
   );
