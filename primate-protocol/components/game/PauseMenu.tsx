@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { useGameStore } from "@/lib/game/state";
+import { UI_SFX } from "@/lib/game/audio";
+import { useSoundEffects } from "@/lib/game/useAudio";
 
 export default function PauseMenu() {
   const isPaused = useGameStore((state) => state.isPaused);
   const togglePause = useGameStore((state) => state.togglePause);
+  const { playSfx } = useSoundEffects();
+
+  const handleResume = () => {
+    playSfx(UI_SFX.pauseClose);
+    togglePause();
+  };
 
   if (!isPaused) {
     return null;
@@ -25,7 +33,7 @@ export default function PauseMenu() {
           <button
             className="rounded-full bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300"
             type="button"
-            onClick={togglePause}
+            onClick={handleResume}
           >
             Resume
           </button>

@@ -11,6 +11,8 @@ import {
   type GadgetId,
 } from "@/lib/game/constants";
 import { useGameStore } from "@/lib/game/state";
+import { GADGET_SFX, UI_SFX } from "@/lib/game/audio";
+import { useSoundEffects } from "@/lib/game/useAudio";
 
 type ControlState = Record<ControlName, boolean>;
 
@@ -31,6 +33,7 @@ export default function GadgetSystem({ playerRef }: GadgetSystemProps) {
   const togglePause = useGameStore((state) => state.togglePause);
   const gadgetsUnlocked = useGameStore((state) => state.gadgetsUnlocked);
   const triggerGadgetEvent = useGameStore((state) => state.triggerGadgetEvent);
+  const { playSfx } = useSoundEffects();
 
   const cooldowns = useMemo(
     () =>
@@ -66,6 +69,7 @@ export default function GadgetSystem({ playerRef }: GadgetSystemProps) {
     const keys = getKeys();
 
     if (keys.pause && !lastPress.current.pause) {
+      playSfx(isPaused ? UI_SFX.pauseClose : UI_SFX.pauseOpen);
       togglePause();
     }
 
@@ -103,6 +107,7 @@ export default function GadgetSystem({ playerRef }: GadgetSystemProps) {
                   ? GADGET_SETTINGS.lureRadius
                   : GADGET_SETTINGS.grappleRange;
           triggerGadgetEvent(gadgetId, [origin.x, origin.y, origin.z], radius);
+          playSfx(GADGET_SFX[gadgetId]);
           nextReadyAt.current[gadgetId] = now + cooldowns[gadgetId];
         }
       }
