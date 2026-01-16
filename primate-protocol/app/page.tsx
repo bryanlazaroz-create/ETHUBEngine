@@ -37,8 +37,8 @@ export default function Home() {
           <div className="space-y-2">
             <h2 className="text-xl font-semibold text-white">Core loop</h2>
             <p className="text-sm text-slate-300">
-              Explore -> use gadgets -> stun/capture creatures -> unlock
-              traversal -> beat objectives -> boss.
+              Explore, use gadgets, stun/capture creatures, unlock traversal,
+              beat objectives, boss.
             </p>
           </div>
           <div className="space-y-2">

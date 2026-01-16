@@ -31,13 +31,17 @@ export default function Creature({
   const isPaused = useGameStore((state) => state.isPaused);
 
   const patrolCenter = useMemo(() => new Vector3(...position), [position]);
-  const wanderAngle = useRef(Math.random() * Math.PI * 2);
+  const wanderAngle = useRef(0);
   const lureTarget = useRef<Vector3 | null>(null);
   const lastEventId = useRef<number | null>(null);
 
   useEffect(() => {
     registerCreature(id);
   }, [id, registerCreature]);
+
+  useEffect(() => {
+    wanderAngle.current = Math.random() * Math.PI * 2;
+  }, []);
 
   useEffect(() => {
     if (!gadgetEvent || gadgetEvent.id === lastEventId.current) {

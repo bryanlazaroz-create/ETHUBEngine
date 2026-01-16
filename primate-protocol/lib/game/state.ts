@@ -55,7 +55,7 @@ const defaultGadgets: Record<GadgetId, boolean> = {
   "grapple-line": false,
 };
 
-export const useGameStore = create<GameState>((set, get) => ({
+export const useGameStore = create<GameState>((set) => ({
   isPaused: false,
   activeLevelId: "level-01",
   playerPosition: [0, 1, 0],

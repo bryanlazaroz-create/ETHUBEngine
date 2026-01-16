@@ -26,7 +26,7 @@ const gadgetKeyMap: Record<GadgetId, ControlName> = {
 };
 
 export default function GadgetSystem({ playerRef }: GadgetSystemProps) {
-  const [_, getKeys] = useKeyboardControls<ControlState>();
+  const [, getKeys] = useKeyboardControls<ControlState>();
   const isPaused = useGameStore((state) => state.isPaused);
   const togglePause = useGameStore((state) => state.togglePause);
   const gadgetsUnlocked = useGameStore((state) => state.gadgetsUnlocked);
