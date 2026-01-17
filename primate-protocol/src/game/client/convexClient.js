@@ -55,6 +55,30 @@ export const listSaves = async (client) => {
   }
 };
 
+export const ensureProfile = async (client, displayName) => {
+  if (!client) {
+    return { ok: false, error: "Convex client unavailable." };
+  }
+  try {
+    await client.mutation("gameProfiles:ensureProfile", { displayName });
+    return { ok: true, error: null };
+  } catch (error) {
+    return { ok: false, error: formatError(error) };
+  }
+};
+
+export const listTopScores = async (client) => {
+  if (!client) {
+    return { data: [], error: "Convex client unavailable." };
+  }
+  try {
+    const data = await client.query("gameScores:listTopScores");
+    return { data, error: null };
+  } catch (error) {
+    return { data: [], error: formatError(error) };
+  }
+};
+
 export const submitScore = async (client, payload) => {
   if (!client) {
     return { ok: false, error: "Convex client unavailable." };

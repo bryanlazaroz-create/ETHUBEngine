@@ -18,6 +18,7 @@ import {
 } from "../engine/logic.js";
 import {
   createConvexClient,
+  ensureProfile,
   loadProgress,
   saveProgress,
   submitScore,
@@ -119,6 +120,10 @@ export const createGameScene = async (engine) => {
 
   let gameState = createInitialGameState();
   if (client) {
+    const profileResult = await ensureProfile(client, "Relay Runner");
+    if (!profileResult.ok) {
+      statusText = `Convex: ${profileResult.error}`;
+    }
     const { data, error } = await loadProgress(client, DEFAULT_SLOT);
     if (data?.data) {
       gameState = hydrateGameState(data.data);
