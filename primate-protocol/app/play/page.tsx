@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LEVELS } from "@/lib/game/constants";
-import GameCanvas from "@/components/game/GameCanvas";
+import GameCanvasClient from "@/components/game/GameCanvasClient";
 
 export default function PlayPage() {
   const level = LEVELS.find((item) => item.id === "level-01");
@@ -30,7 +30,7 @@ export default function PlayPage() {
           Move: WASD or arrows. Jump: Space. Stun: F. Capture: E. Lure: Q.
           Grapple: G. Pause: Esc.
         </div>
-        <GameCanvas levelId="level-01" />
+        <GameCanvasClient levelId="level-01" />
       </main>
     </div>
   );

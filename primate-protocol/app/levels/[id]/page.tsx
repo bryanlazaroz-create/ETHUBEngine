@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LEVELS } from "@/lib/game/constants";
-import GameCanvas from "@/components/game/GameCanvas";
+import GameCanvasClient from "@/components/game/GameCanvasClient";
 
 type LevelPageProps = {
   params: { id: string };
@@ -37,7 +37,7 @@ export default function LevelPage({ params }: LevelPageProps) {
           Move: WASD or arrows. Jump: Space. Stun: F. Capture: E. Lure: Q.
           Grapple: G. Pause: Esc.
         </div>
-        <GameCanvas levelId={level.id} />
+        <GameCanvasClient levelId={level.id} />
       </main>
     </div>
   );
