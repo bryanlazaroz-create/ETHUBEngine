@@ -71,7 +71,7 @@ const deriveKey = async (
 ): Promise<CryptoKey> => {
   const keyMaterial = await window.crypto.subtle.importKey(
     "raw",
-    secret,
+    secret as BufferSource,
     { name: "PBKDF2" },
     false,
     ["deriveKey"]
