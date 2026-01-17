@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Primate Protocol</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="hud" class="hud">
+      <div class="hud__title">Primate Protocol</div>
+      <div id="hud-status" class="hud__status">Loading...</div>
+      <div class="hud__stats">
+        <div>Captured: <span id="hud-captured">0</span></div>
+        <div>Time: <span id="hud-time">0.0</span>s</div>
+        <div>Score: <span id="hud-score">0</span></div>
+      </div>
+      <div class="hud__controls">
+        Move: WASD / Arrows · Action: Space · Save: P
+      </div>
+      <div class="hud__controls">
+        Toggle camera: C · Reset: R
+      </div>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <script type="module" src="/src/game/client/main.js"></script>
+  </body>
+</html>

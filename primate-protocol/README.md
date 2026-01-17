@@ -1,19 +1,25 @@
-Primate Protocol is a Next.js + React Three Fiber prototype targeting web and
-Android (via Capacitor).
+Primate Protocol is a browser-first Babylon.js game with a pure JavaScript
+gameplay engine layer and Convex-backed persistence.
 
 ## Getting Started
 
 1. `npm install`
-2. `npm run dev`
-3. Open `http://localhost:3000`
+2. Set `VITE_CONVEX_URL` in `.env` (see `docs/CONVEX.md`).
+3. `npm run dev`
+4. Open `http://localhost:5173`
 
-## Android 12 APK
+## Build
 
-Capacitor is configured for Android builds with static export output (`out/`).
-Follow the step-by-step guide in `docs/ANDROID_APK.md`.
+- `npm run build`
+- `npm run preview`
+
+## Tests
+
+- `npm test`
+- `npm run lint`
 
 ## Data storage (Convex)
 
-Gameplay saves are local-only; no DB files are committed. If you add persistent
-data storage, use the Convex endpoints in `docs/CONVEX.md` and keep database
-artifacts out of the repo.
+All saves, profiles, and scores live in Convex. Client code reads the deployment
+URL from `VITE_CONVEX_URL` and never hard-codes secrets. See `docs/CONVEX.md`
+for setup details.
