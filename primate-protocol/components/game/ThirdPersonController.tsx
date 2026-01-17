@@ -6,14 +6,14 @@ import { useKeyboardControls } from "@react-three/drei";
 import {
   CapsuleCollider,
   RigidBody,
-  type RigidBodyApi,
+  type RapierRigidBody,
   useRapier,
 } from "@react-three/rapier";
 import { Vector3 } from "three";
 import { PLAYER_SETTINGS, type ControlName } from "@/lib/game/constants";
 import { useGameStore } from "@/lib/game/state";
 
-export type PlayerRef = MutableRefObject<RigidBodyApi | null>;
+export type PlayerRef = MutableRefObject<RapierRigidBody | null>;
 
 type ControlState = Record<ControlName, boolean>;
 
