@@ -19,9 +19,15 @@ type GameCanvasProps = {
   levelId: string;
 };
 
+type CreatureSpawn = {
+  id: string;
+  position: [number, number, number];
+  type: (typeof CREATURES)[number];
+};
+
 const Scene = ({ levelId }: { levelId: string }) => {
   const playerRef = useRef<RapierRigidBody | null>(null);
-  const creatureSpawns = useMemo(
+  const creatureSpawns = useMemo<CreatureSpawn[]>(
     () => [
       { id: "skitterling-01", position: [-4, 1, -2], type: CREATURES[0] },
       { id: "bark-bouncer-01", position: [3, 1, -4], type: CREATURES[1] },
