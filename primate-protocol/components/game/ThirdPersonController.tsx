@@ -15,8 +15,6 @@ import { useGameStore } from "@/lib/game/state";
 
 export type PlayerRef = MutableRefObject<RapierRigidBody | null>;
 
-type ControlState = Record<ControlName, boolean>;
-
 type ThirdPersonControllerProps = {
   playerRef: PlayerRef;
 };
@@ -32,7 +30,7 @@ export default function ThirdPersonController({
   const isPaused = useGameStore((state) => state.isPaused);
   const updatePlayerState = useGameStore((state) => state.updatePlayerState);
   const { rapier, world } = useRapier();
-  const [subscribeKeys, getKeys] = useKeyboardControls<ControlState>();
+  const [subscribeKeys, getKeys] = useKeyboardControls<ControlName>();
   const cameraOffset = useMemo(
     () => new Vector3(...PLAYER_SETTINGS.cameraOffset),
     []
