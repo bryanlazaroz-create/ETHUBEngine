@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: "com.bryanlazaroz.ethubengine",
   appName: "Primate Protocol",
   webDir: "out",
-  bundledWebRuntime: false,
   server: {
     androidScheme: "https",
   },
