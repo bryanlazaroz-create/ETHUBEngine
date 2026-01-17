@@ -6,9 +6,15 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:run": "npm run android:sync && npx cap run android",
+    "apk:zip": "bash scripts/package-apk.sh"
   },
   "dependencies": {
+    "@capacitor/android": "^8.0.1",
+    "@capacitor/core": "^8.0.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/rapier": "^2.2.0",
@@ -19,6 +25,7 @@
     "zustand": "^5.0.10"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

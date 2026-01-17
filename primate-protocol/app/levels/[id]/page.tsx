@@ -3,6 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LEVELS } from "@/lib/game/constants";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return LEVELS.map((level) => ({ id: level.id }));
+}
+
 const GameCanvas = dynamic(() => import("@/components/game/GameCanvas"), {
   ssr: false,
   loading: () => (
