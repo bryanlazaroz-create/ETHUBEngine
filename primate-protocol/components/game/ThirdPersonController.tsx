@@ -76,7 +76,7 @@ export default function ThirdPersonController({
     const now = state.clock.getElapsedTime() * 1000;
     const ray = new rapier.Ray(translation, { x: 0, y: -1, z: 0 });
     const hit = world.castRay(ray, 0.9, true);
-    const grounded = Boolean(hit && hit.toi < 0.7);
+    const grounded = Boolean(hit && hit.timeOfImpact < 0.7);
     if (grounded) {
       lastGroundedAt.current = now;
     }
@@ -161,10 +161,10 @@ export default function ThirdPersonController({
         z: cameraRayDir.z,
       });
       const cameraHit = world.castRay(cameraRay, cameraDistance, true);
-      if (cameraHit && cameraHit.toi < cameraDistance) {
+      if (cameraHit && cameraHit.timeOfImpact < cameraDistance) {
         const clamped = Math.max(
           0.5,
-          cameraHit.toi - PLAYER_SETTINGS.cameraCollisionPadding
+          cameraHit.timeOfImpact - PLAYER_SETTINGS.cameraCollisionPadding
         );
         desiredCamera.copy(target).add(cameraRayDir.multiplyScalar(clamped));
       }
