@@ -16,6 +16,10 @@ const GameCanvas = dynamic(() => import("@/components/game/GameCanvas"), {
   ),
 });
 
-export function GameCanvasClient() {
-  return <GameCanvas />;
+type GameCanvasClientProps = {
+  levelId: string;
+};
+
+export function GameCanvasClient({ levelId }: GameCanvasClientProps) {
+  return <GameCanvas levelId={levelId} />;
 }

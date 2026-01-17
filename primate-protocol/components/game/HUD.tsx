@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { selectSaveData, useGameStore } from "@/lib/game/state";
 import { CONTROLS, GADGETS, LEVELS } from "@/lib/game/constants";
 import { isSaveSupported, loadGame, saveGame } from "@/lib/save/save";
-import { shallow } from "zustand/shallow";
 
 export default function HUD() {
   const levelId = useGameStore((state) => state.activeLevelId);
@@ -14,7 +13,7 @@ export default function HUD() {
   const lastSaveAt = useGameStore((state) => state.lastSaveAt);
   const applySaveData = useGameStore((state) => state.applySaveData);
   const markSaved = useGameStore((state) => state.markSaved);
-  const saveData = useGameStore(selectSaveData, shallow);
+  const saveData = useGameStore(selectSaveData);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
 
   const level = useMemo(

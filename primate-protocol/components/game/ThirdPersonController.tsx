@@ -6,16 +6,14 @@ import { useKeyboardControls } from "@react-three/drei";
 import {
   CapsuleCollider,
   RigidBody,
-  type RigidBodyApi,
+  type RapierRigidBody,
   useRapier,
 } from "@react-three/rapier";
 import { Vector3 } from "three";
 import { PLAYER_SETTINGS, type ControlName } from "@/lib/game/constants";
 import { useGameStore } from "@/lib/game/state";
 
-export type PlayerRef = MutableRefObject<RigidBodyApi | null>;
-
-type ControlState = Record<ControlName, boolean>;
+export type PlayerRef = MutableRefObject<RapierRigidBody | null>;
 
 type ThirdPersonControllerProps = {
   playerRef: PlayerRef;
@@ -32,7 +30,7 @@ export default function ThirdPersonController({
   const isPaused = useGameStore((state) => state.isPaused);
   const updatePlayerState = useGameStore((state) => state.updatePlayerState);
   const { rapier, world } = useRapier();
-  const [subscribeKeys, getKeys] = useKeyboardControls<ControlState>();
+  const [subscribeKeys, getKeys] = useKeyboardControls<ControlName>();
   const cameraOffset = useMemo(
     () => new Vector3(...PLAYER_SETTINGS.cameraOffset),
     []
@@ -78,7 +76,7 @@ export default function ThirdPersonController({
     const now = state.clock.getElapsedTime() * 1000;
     const ray = new rapier.Ray(translation, { x: 0, y: -1, z: 0 });
     const hit = world.castRay(ray, 0.9, true);
-    const grounded = Boolean(hit && hit.toi < 0.7);
+    const grounded = Boolean(hit && hit.timeOfImpact < 0.7);
     if (grounded) {
       lastGroundedAt.current = now;
     }
@@ -163,10 +161,10 @@ export default function ThirdPersonController({
         z: cameraRayDir.z,
       });
       const cameraHit = world.castRay(cameraRay, cameraDistance, true);
-      if (cameraHit && cameraHit.toi < cameraDistance) {
+      if (cameraHit && cameraHit.timeOfImpact < cameraDistance) {
         const clamped = Math.max(
           0.5,
-          cameraHit.toi - PLAYER_SETTINGS.cameraCollisionPadding
+          cameraHit.timeOfImpact - PLAYER_SETTINGS.cameraCollisionPadding
         );
         desiredCamera.copy(target).add(cameraRayDir.multiplyScalar(clamped));
       }

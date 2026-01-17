@@ -3,7 +3,7 @@
 import { useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
-import type { RigidBodyApi } from "@react-three/rapier";
+import type { RapierRigidBody } from "@react-three/rapier";
 import {
   GADGETS,
   GADGET_SETTINGS,
@@ -14,10 +14,8 @@ import { useGameStore } from "@/lib/game/state";
 import { GADGET_SFX, UI_SFX } from "@/lib/game/audio";
 import { useSoundEffects } from "@/lib/game/useAudio";
 
-type ControlState = Record<ControlName, boolean>;
-
 type GadgetSystemProps = {
-  playerRef: MutableRefObject<RigidBodyApi | null>;
+  playerRef: MutableRefObject<RapierRigidBody | null>;
 };
 
 const gadgetKeyMap: Record<GadgetId, ControlName> = {
@@ -28,7 +26,7 @@ const gadgetKeyMap: Record<GadgetId, ControlName> = {
 };
 
 export default function GadgetSystem({ playerRef }: GadgetSystemProps) {
-  const [, getKeys] = useKeyboardControls<ControlState>();
+  const [, getKeys] = useKeyboardControls<ControlName>();
   const isPaused = useGameStore((state) => state.isPaused);
   const togglePause = useGameStore((state) => state.togglePause);
   const gadgetsUnlocked = useGameStore((state) => state.gadgetsUnlocked);

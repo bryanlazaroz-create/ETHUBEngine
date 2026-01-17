@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { RigidBody, type RigidBodyApi } from "@react-three/rapier";
+import { RigidBody, type RapierRigidBody } from "@react-three/rapier";
 import { Vector3 } from "three";
 import { useGameStore, type CreatureStatus } from "@/lib/game/state";
 import { GADGET_SETTINGS } from "@/lib/game/constants";
@@ -25,7 +25,7 @@ export default function Creature({
   patrolRadius = 3,
   speed = 2.2,
 }: CreatureProps) {
-  const bodyRef = useRef<RigidBodyApi | null>(null);
+  const bodyRef = useRef<RapierRigidBody | null>(null);
   const registerCreature = useGameStore((state) => state.registerCreature);
   const stunCreature = useGameStore((state) => state.stunCreature);
   const captureCreature = useGameStore((state) => state.captureCreature);

@@ -6,7 +6,7 @@ type AudioAsset = {
   loop?: boolean;
 };
 
-export const AUDIO_LIBRARY = {
+const AUDIO_LIBRARY_DATA = {
   "music-canopy-pursuit": {
     src: "/assets/audio/music-canopy-pursuit.mp3",
     volume: 0.32,
@@ -86,7 +86,9 @@ export const AUDIO_LIBRARY = {
   },
 } satisfies Record<string, AudioAsset>;
 
-export type AudioId = keyof typeof AUDIO_LIBRARY;
+export type AudioId = keyof typeof AUDIO_LIBRARY_DATA;
+
+export const AUDIO_LIBRARY: Record<AudioId, AudioAsset> = AUDIO_LIBRARY_DATA;
 
 export type CreatureAudioKey =
   | "skitterling"

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { KeyboardControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import type { RigidBodyApi } from "@react-three/rapier";
+import type { RapierRigidBody } from "@react-three/rapier";
 import { useGameStore } from "@/lib/game/state";
 import { CONTROL_MAP, CREATURES, LEVELS } from "@/lib/game/constants";
 import HUD from "@/components/game/HUD";
@@ -19,9 +19,15 @@ type GameCanvasProps = {
   levelId: string;
 };
 
+type CreatureSpawn = {
+  id: string;
+  position: [number, number, number];
+  type: (typeof CREATURES)[number];
+};
+
 const Scene = ({ levelId }: { levelId: string }) => {
-  const playerRef = useRef<RigidBodyApi | null>(null);
-  const creatureSpawns = useMemo(
+  const playerRef = useRef<RapierRigidBody | null>(null);
+  const creatureSpawns = useMemo<CreatureSpawn[]>(
     () => [
       { id: "skitterling-01", position: [-4, 1, -2], type: CREATURES[0] },
       { id: "bark-bouncer-01", position: [3, 1, -4], type: CREATURES[1] },

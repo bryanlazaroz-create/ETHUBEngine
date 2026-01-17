@@ -4,13 +4,14 @@ import { GameCanvasClient } from "./GameCanvasClient";
 
 export default function PlayPage() {
   const level = LEVELS.find((item) => item.id === "level-01");
+  const levelId = level?.id ?? "level-01";
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-8 lg:flex-row">
         {/* Left: 3D canvas (client-only) */}
         <section className="flex-1">
-          <GameCanvasClient />
+          <GameCanvasClient levelId={levelId} />
         </section>
 
         {/* Right: level info / controls */}
