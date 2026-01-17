@@ -196,7 +196,7 @@ export const CONTROLS: ControlDefinition[] = [
   { action: "Pause", keys: ["Esc"], label: "Pause menu" },
 ];
 
-export const CONTROL_MAP = [
+export const CONTROL_MAP: { name: ControlName; keys: string[] }[] = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
   { name: "backward", keys: ["ArrowDown", "KeyS"] },
   { name: "left", keys: ["ArrowLeft", "KeyA"] },
@@ -208,7 +208,7 @@ export const CONTROL_MAP = [
   { name: "lure", keys: ["KeyQ"] },
   { name: "grapple", keys: ["KeyG"] },
   { name: "pause", keys: ["Escape"] },
-] as const;
+];
 
 export const PLAYER_SETTINGS = {
   walkSpeed: 6,
