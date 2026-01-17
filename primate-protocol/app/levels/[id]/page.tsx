@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LEVELS } from "@/lib/game/constants";
+import GameCanvas from "@/components/game/GameCanvas";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -9,15 +9,6 @@ export const dynamicParams = false;
 export function generateStaticParams() {
   return LEVELS.map((level) => ({ id: level.id }));
 }
-
-const GameCanvas = dynamic(() => import("@/components/game/GameCanvas"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex min-h-[60vh] items-center justify-center rounded-3xl border border-slate-800 bg-slate-900/70 text-sm text-slate-300">
-      Loading 3D scene...
-    </div>
-  ),
-});
 
 type LevelPageProps = {
   params: { id: string };
