@@ -28,6 +28,8 @@ const PBKDF2_ITERATIONS = 150000;
 
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
+const asBufferSource = (bytes: Uint8Array): BufferSource =>
+  bytes as BufferSource;
 
 const ensureBrowser = () => {
   if (typeof window === "undefined") {
@@ -71,7 +73,7 @@ const deriveKey = async (
 ): Promise<CryptoKey> => {
   const keyMaterial = await window.crypto.subtle.importKey(
     "raw",
-    secret as BufferSource,
+    asBufferSource(secret),
     { name: "PBKDF2" },
     false,
     ["deriveKey"]
@@ -79,7 +81,7 @@ const deriveKey = async (
   return window.crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt,
+      salt: asBufferSource(salt),
       iterations,
       hash: "SHA-256",
     },
@@ -101,9 +103,9 @@ const encryptSave = async (payload: GameSave): Promise<EncryptedSave> => {
   const key = await deriveKey(secret, salt, PBKDF2_ITERATIONS);
   const encoded = textEncoder.encode(JSON.stringify(payload));
   const ciphertext = await window.crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
+    { name: "AES-GCM", iv: asBufferSource(iv) },
     key,
-    encoded
+    asBufferSource(encoded)
   );
 
   return {
@@ -123,9 +125,9 @@ const decryptSave = async (payload: EncryptedSave): Promise<GameSave> => {
   const ciphertext = base64ToBytes(payload.ciphertext);
   const key = await deriveKey(secret, salt, payload.iterations);
   const decrypted = await window.crypto.subtle.decrypt(
-    { name: "AES-GCM", iv },
+    { name: "AES-GCM", iv: asBufferSource(iv) },
     key,
-    ciphertext
+    asBufferSource(ciphertext)
   );
   const decoded = textDecoder.decode(decrypted);
   return JSON.parse(decoded) as GameSave;
