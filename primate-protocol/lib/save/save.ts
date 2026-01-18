@@ -1,4 +1,5 @@
-import type { GadgetId, LevelId } from "@/lib/game/constants";
+import type { GadgetId } from "@/lib/game/constants";
+import type { LevelId } from "../game/LevelId";
 
 export type GameSaveData = {
   levelId: LevelId;

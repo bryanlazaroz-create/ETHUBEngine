@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { GadgetId, LevelId } from "@/lib/game/constants";
+import type { GadgetId } from "@/lib/game/constants";
+import type { LevelId } from "./LevelId";
 import type { GameSaveData } from "@/lib/save/save";
 
 export type Vec3 = [number, number, number];
