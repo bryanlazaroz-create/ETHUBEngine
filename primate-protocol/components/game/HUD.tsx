@@ -1,11 +1,12 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import { shallow } from "zustand/shallow";
 
 import { useGameStore, selectSaveData } from "@/lib/game/state";
-import { CONTROLS, GADGETS } from "@/lib/game/constants";
-import { LEVELS } from "@/lib/game/LEVELS.1";
+import { CONTROLS, GADGETS, LEVELS } from "@/lib/game/constants";
 import { isSaveSupported, loadGame, saveGame } from "@/lib/save/save";
+import type { GadgetId } from "@/lib/game/types";
 
 export default function HUD() {
   /* =========================
@@ -19,7 +20,7 @@ export default function HUD() {
 
   const applySaveData = useGameStore((state) => state.applySaveData);
   const markSaved = useGameStore((state) => state.markSaved);
-  const saveData = useGameStore(selectSaveData);
+  const saveData = useGameStore(selectSaveData, shallow);
 
   /* =========================
      Local UI state
