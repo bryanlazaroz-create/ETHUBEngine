@@ -12,8 +12,11 @@ Android (via Capacitor).
 Capacitor is configured for Android builds with static export output (`out/`).
 Follow the step-by-step guide in `docs/ANDROID_APK.md`.
 
-## Data storage (Convex)
+## Auth + data (Clerk + Convex)
 
-Gameplay saves are local-only; no DB files are committed. If you add persistent
-data storage, use the Convex endpoints in `docs/CONVEX.md` and keep database
-artifacts out of the repo.
+Copy `.env.example` to `.env.local` and set:
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_CONVEX_URL`
+
+Gameplay saves are local-only; if you add persistent data storage, use the
+Convex endpoints in `docs/CONVEX.md` and keep database artifacts out of the repo.

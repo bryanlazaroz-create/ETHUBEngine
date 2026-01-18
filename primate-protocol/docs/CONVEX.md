@@ -8,4 +8,5 @@ deployment endpoints below and keep database files out of the repository.
 - Dashboard/site: https://astute-starfish-225.convex.site
 
 Recommended env values (example):
-- `CONVEX_URL=https://astute-starfish-225.convex.cloud`
+- `NEXT_PUBLIC_CONVEX_URL=https://astute-starfish-225.convex.cloud`
+- `CONVEX_URL=https://astute-starfish-225.convex.cloud` (optional for server-side usage)
