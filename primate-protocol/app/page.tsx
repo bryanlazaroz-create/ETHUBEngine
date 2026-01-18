@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { GADGETS, LEVELS } from "@/lib/game/constants";
+import { AuthControls } from "@/components/auth/AuthControls";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <header className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 pb-6 pt-12">
-        <p className="text-sm uppercase tracking-[0.3em] text-slate-400">
-          Working title
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-sm uppercase tracking-[0.3em] text-slate-400">
+            Working title
+          </p>
+          <AuthControls />
+        </div>
         <h1 className="text-4xl font-semibold text-white sm:text-5xl">
           Primate Protocol
         </h1>
