@@ -1,5 +1,8 @@
 import type { GadgetId } from "@/lib/game/constants";
 import type { LevelId } from "../game/LevelId";
+import { api } from "@/convex/_generated/api";
+import { useConvexAuth } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 
 export type GameSaveData = {
   levelId: LevelId;
@@ -184,4 +187,26 @@ export const migrateSave = (payload: GameSave): GameSaveData | null => {
     return payload.data;
   }
   return payload.data;
+};
+
+export const useGameSave = () => {
+  const { isAuthenticated, user } = useConvexAuth();
+  const saveGameMutation = useMutation(api.saves.saveGame);
+  const loadGameQuery = useQuery(api.saves.loadGame, 
+    isAuthenticated && user ? { userId: user.id } : "skip"
+  );
+
+  const saveGame = async (data: GameSaveData) => {
+    if (!isAuthenticated || !user) throw new Error("Not authenticated");
+    return await saveGameMutation({
+      userId: user.id,
+      ...data,
+    });
+  };
+
+  const loadGame = async () => {
+    return loadGameQuery;
+  };
+
+  return { saveGame, loadGame };
 };
