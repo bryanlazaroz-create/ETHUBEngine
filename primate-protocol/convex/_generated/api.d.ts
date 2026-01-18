@@ -14,7 +14,11 @@ import type {
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+import type * as saves from "../saves";
+
+declare const fullApi: ApiFromModules<{
+  saves: typeof saves;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.

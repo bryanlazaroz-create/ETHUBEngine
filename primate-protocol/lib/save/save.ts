@@ -22,7 +22,7 @@ type EncryptedSave = {
   iterations: number;
 };
 
-const SAVE_VERSION = 1;
+export const SAVE_VERSION = 1;
 const STORAGE_KEY = "primate-protocol:save:v1";
 const SECRET_KEY = "primate-protocol:device-secret:v1";
 const PBKDF2_ITERATIONS = 150000;

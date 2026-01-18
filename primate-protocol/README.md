@@ -18,5 +18,5 @@ Copy `.env.example` to `.env.local` and set:
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_CONVEX_URL`
 
-Gameplay saves are local-only; if you add persistent data storage, use the
-Convex endpoints in `docs/CONVEX.md` and keep database artifacts out of the repo.
+Gameplay saves sync to Convex for signed-in users, with local backups as a
+fallback. See `docs/CONVEX.md` for setup details.

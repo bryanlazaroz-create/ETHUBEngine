@@ -76,7 +76,7 @@ export default function GameCanvas({ levelId }: GameCanvasProps) {
   const setLevel = useGameStore((state) => state.setLevel);
 
   useEffect(() => {
-    const found = LEVELS.find((level: { id: string; }) => level.id === levelId);
+    const found = LEVELS.find((level) => level.id === levelId);
     if (found) {
       setLevel(found.id);
     }

@@ -1,21 +1,18 @@
 import { notFound } from "next/navigation";
 import { LEVELS } from "@/lib/game/LEVELS.1";
-import { type LevelDefinition } from "@/lib/game/LevelDefinition";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
 export function generateStaticParams() {
-  return LEVELS.map((level: { id: any; }) => ({ id: level.id }));
+  return LEVELS.map((level) => ({ id: level.id }));
 }
 
 export default async function LevelPage({ params }: PageProps) {
   const { id } = await params;
 
-  const level: LevelDefinition | undefined = LEVELS.find(
-    (lvl: { id: string; }) => lvl.id === id
-  );
+  const level = LEVELS.find((lvl) => lvl.id === id);
 
   if (!level) notFound();
 
