@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Primate Protocol Changes</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/changes.css" />
+  </head>
+  <body>
+    <main id="changes">
+      <header>
+        <p class="eyebrow">Release Notes</p>
+        <h1>Primate Protocol: Containment Sweep</h1>
+        <p class="lede">
+          A complete refactor to a Phaser 3 game loop, a pure JavaScript engine
+          core, and Convex persistence.
+        </p>
+        <a href="/" class="back-link">Back to game</a>
+      </header>
+
+      <section>
+        <h2>Gameplay Engine</h2>
+        <ul>
+          <li>Pure JavaScript logic layer with deterministic updates.</li>
+          <li>Vector math helpers and capture mechanics in the engine.</li>
+          <li>Unit tests covering movement, capture, and win conditions.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Rendering and Scenes</h2>
+        <ul>
+          <li>Phaser 3 boot and game scenes with real graphics.</li>
+          <li>HUD updates for score, remaining targets, and time.</li>
+          <li>Custom sprites and tiled background assets.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Persistence</h2>
+        <ul>
+          <li>Convex schema for profiles and save slots.</li>
+          <li>Autosave hooks for periodic and event-driven saves.</li>
+          <li>
+            Configure the Convex URL with
+            <code>VITE_CONVEX_URL</code> in <code>.env</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Tooling</h2>
+        <ul>
+          <li>Vite for development and production builds.</li>
+          <li>ESLint for static checks.</li>
+          <li>Vitest for engine unit tests.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

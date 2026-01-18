@@ -18,22 +18,50 @@ const DEFAULT_ENEMY_POSITIONS = [
   createVector(480, 260),
 ];
 
+/**
+ * Add two vectors.
+ * @param {{x:number,y:number}} a - First vector.
+ * @param {{x:number,y:number}} b - Second vector.
+ * @returns {{x:number,y:number}} Sum vector.
+ */
 export function add(a, b) {
   return { x: a.x + b.x, y: a.y + b.y };
 }
 
+/**
+ * Subtract vector b from vector a.
+ * @param {{x:number,y:number}} a - First vector.
+ * @param {{x:number,y:number}} b - Second vector.
+ * @returns {{x:number,y:number}} Difference vector.
+ */
 export function sub(a, b) {
   return { x: a.x - b.x, y: a.y - b.y };
 }
 
+/**
+ * Scale a vector by a scalar.
+ * @param {{x:number,y:number}} vector - Input vector.
+ * @param {number} scalar - Scalar multiplier.
+ * @returns {{x:number,y:number}} Scaled vector.
+ */
 export function scale(vector, scalar) {
   return { x: vector.x * scalar, y: vector.y * scalar };
 }
 
+/**
+ * Get the length of a vector.
+ * @param {{x:number,y:number}} vector - Input vector.
+ * @returns {number} Vector length.
+ */
 export function length(vector) {
   return Math.hypot(vector.x, vector.y);
 }
 
+/**
+ * Normalize a vector to unit length.
+ * @param {{x:number,y:number}} vector - Input vector.
+ * @returns {{x:number,y:number}} Normalized vector.
+ */
 export function normalize(vector) {
   const size = length(vector);
   if (size === 0) {
@@ -42,14 +70,32 @@ export function normalize(vector) {
   return { x: vector.x / size, y: vector.y / size };
 }
 
+/**
+ * Calculate the dot product of two vectors.
+ * @param {{x:number,y:number}} a - First vector.
+ * @param {{x:number,y:number}} b - Second vector.
+ * @returns {number} Dot product.
+ */
 export function dot(a, b) {
   return a.x * b.x + a.y * b.y;
 }
 
+/**
+ * Clamp a number between min and max.
+ * @param {number} value - Input value.
+ * @param {number} min - Minimum allowed value.
+ * @param {number} max - Maximum allowed value.
+ * @returns {number} Clamped value.
+ */
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
+/**
+ * Keep a position within world bounds.
+ * @param {{x:number,y:number}} position - Input position.
+ * @returns {{x:number,y:number}} Clamped position.
+ */
 function clampPosition(position) {
   return {
     x: clamp(
@@ -65,10 +111,22 @@ function clampPosition(position) {
   };
 }
 
+/**
+ * Coerce a value into a finite number.
+ * @param {unknown} value - Candidate value.
+ * @param {number} fallback - Fallback value.
+ * @returns {number} Finite number.
+ */
 function safeNumber(value, fallback) {
   return Number.isFinite(value) ? value : fallback;
 }
 
+/**
+ * Validate a vector-like object.
+ * @param {unknown} value - Candidate value.
+ * @param {{x:number,y:number}} fallback - Fallback vector.
+ * @returns {{x:number,y:number}} Valid vector.
+ */
 function safeVector(value, fallback) {
   if (
     value &&
@@ -80,6 +138,12 @@ function safeVector(value, fallback) {
   return { x: fallback.x, y: fallback.y };
 }
 
+/**
+ * Normalize a direction or fall back to a default.
+ * @param {{x:number,y:number}} value - Direction candidate.
+ * @param {{x:number,y:number}} fallback - Fallback direction.
+ * @returns {{x:number,y:number}} Normalized direction.
+ */
 function normalizeDirection(value, fallback) {
   const normalized = normalize(value);
   if (normalized.x === 0 && normalized.y === 0) {
@@ -88,6 +152,11 @@ function normalizeDirection(value, fallback) {
   return normalized;
 }
 
+/**
+ * Validate an enemy state string.
+ * @param {unknown} state - Candidate state.
+ * @returns {boolean} True when valid.
+ */
 function isValidEnemyState(state) {
   return (
     state === "idle" ||
@@ -97,6 +166,11 @@ function isValidEnemyState(state) {
   );
 }
 
+/**
+ * Create a fresh game state with player and enemies.
+ * @param {{enemyCount?:number}} [options] - Optional configuration.
+ * @returns {{player:object,enemies:Array, capturedCount:number, score:number, timeElapsed:number, isGameOver:boolean}} Game state.
+ */
 export function createInitialGameState(options = {}) {
   const enemyCount = Math.max(
     0,
@@ -124,6 +198,11 @@ export function createInitialGameState(options = {}) {
   };
 }
 
+/**
+ * Normalize saved data into a valid game state.
+ * @param {unknown} saved - Saved snapshot to apply.
+ * @returns {{player:object,enemies:Array, capturedCount:number, score:number, timeElapsed:number, isGameOver:boolean}} Game state.
+ */
 export function applySavedGameState(saved) {
   if (!saved || typeof saved !== "object") {
     return createInitialGameState();
@@ -199,6 +278,11 @@ export function applySavedGameState(saved) {
   };
 }
 
+/**
+ * Convert game state to a JSON-friendly payload.
+ * @param {{player:object,enemies:Array, capturedCount:number, score:number, timeElapsed:number, isGameOver:boolean}} state - Current state.
+ * @returns {{player:object,enemies:Array,capturedCount:number,score:number,timeElapsed:number,isGameOver:boolean}} Serialized state.
+ */
 export function serializeGameState(state) {
   return {
     player: {
@@ -224,6 +308,13 @@ export function serializeGameState(state) {
   };
 }
 
+/**
+ * Update a single enemy based on player proximity.
+ * @param {{id:string,position:{x:number,y:number},state:string,speed:number,awarenessRadius:number,wanderDirection:{x:number,y:number},wanderTimer:number}} enemy - Current enemy.
+ * @param {{position:{x:number,y:number}}} player - Player state.
+ * @param {number} dt - Delta time in seconds.
+ * @returns {{id:string,position:{x:number,y:number},state:string,speed:number,awarenessRadius:number,wanderDirection:{x:number,y:number},wanderTimer:number}} Updated enemy.
+ */
 function updateEnemy(enemy, player, dt) {
   const next = {
     ...enemy,
@@ -277,6 +368,13 @@ function updateEnemy(enemy, player, dt) {
   return next;
 }
 
+/**
+ * Advance the game state by one tick.
+ * @param {{player:object,enemies:Array,capturedCount:number,score:number,timeElapsed:number,isGameOver:boolean}} prevGameState - Previous state.
+ * @param {{up?:boolean,down?:boolean,left?:boolean,right?:boolean,action?:boolean}} inputState - Player input.
+ * @param {number} dt - Delta time in seconds.
+ * @returns {{player:object,enemies:Array,capturedCount:number,score:number,timeElapsed:number,isGameOver:boolean}} Updated state.
+ */
 export function updateGameState(prevGameState, inputState, dt) {
   const safeDt = Math.max(0, safeNumber(dt, 0));
   const input = createInputState(inputState);

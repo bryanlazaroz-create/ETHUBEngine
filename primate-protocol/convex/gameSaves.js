@@ -1,10 +1,18 @@
 import { mutation, query } from "convex/server";
 import { v } from "convex/values";
 
+/**
+ * Resolve a stable user id from a Convex identity.
+ * @param {{subject?:string,tokenIdentifier?:string}} identity - Auth identity.
+ * @returns {string} Stable user id.
+ */
 function getUserId(identity) {
   return identity.subject || identity.tokenIdentifier;
 }
 
+/**
+ * Save or update a game progress slot.
+ */
 export const saveProgress = mutation({
   args: {
     slot: v.number(),
@@ -36,6 +44,9 @@ export const saveProgress = mutation({
   },
 });
 
+/**
+ * Load a game progress slot.
+ */
 export const loadProgress = query({
   args: {
     slot: v.number(),
@@ -55,6 +66,9 @@ export const loadProgress = query({
   },
 });
 
+/**
+ * List save slots for the authenticated user.
+ */
 export const listSaves = query({
   args: {},
   handler: async (ctx) => {

@@ -1,10 +1,18 @@
 import { mutation, query } from "convex/server";
 import { v } from "convex/values";
 
+/**
+ * Resolve a stable user id from a Convex identity.
+ * @param {{subject?:string,tokenIdentifier?:string}} identity - Auth identity.
+ * @returns {string} Stable user id.
+ */
 function getUserId(identity) {
   return identity.subject || identity.tokenIdentifier;
 }
 
+/**
+ * Create or update the player's profile.
+ */
 export const upsertProfile = mutation({
   args: {
     displayName: v.optional(v.string()),
@@ -33,6 +41,9 @@ export const upsertProfile = mutation({
   },
 });
 
+/**
+ * Fetch the current player's profile.
+ */
 export const getProfile = query({
   args: {},
   handler: async (ctx) => {

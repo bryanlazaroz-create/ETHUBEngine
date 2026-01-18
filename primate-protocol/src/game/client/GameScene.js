@@ -12,6 +12,9 @@ const SAVE_SLOT = 1;
 const AUTO_SAVE_INTERVAL = 10000;
 
 export class GameScene extends Phaser.Scene {
+  /**
+   * Create the game scene instance.
+   */
   constructor() {
     super("GameScene");
     this.gameState = null;
@@ -26,6 +29,9 @@ export class GameScene extends Phaser.Scene {
     this.savedGameOver = false;
   }
 
+  /**
+   * Initialize sprites, input, and game state.
+   */
   create() {
     this.gameState = createInitialGameState();
 
@@ -68,6 +74,9 @@ export class GameScene extends Phaser.Scene {
     this.bootstrapConvex();
   }
 
+  /**
+   * Rebuild enemy sprites based on current game state.
+   */
   buildEnemySprites() {
     this.enemySprites.forEach((sprite) => sprite.destroy());
     this.enemySprites.clear();
@@ -78,6 +87,10 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * Load profile and save data from Convex, if available.
+   * @returns {Promise<void>} When bootstrap completes.
+   */
   async bootstrapConvex() {
     if (!hasConvex()) {
       this.statusText.setText("Convex not configured. Running offline.");
@@ -98,6 +111,10 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Read keyboard state into an engine input snapshot.
+   * @returns {{up:boolean,down:boolean,left:boolean,right:boolean,action:boolean}} Input state.
+   */
   buildInputState() {
     return {
       up: this.cursors.up.isDown || this.keys.W.isDown,
@@ -108,6 +125,11 @@ export class GameScene extends Phaser.Scene {
     };
   }
 
+  /**
+   * Phaser update loop entry point.
+   * @param {number} _time - Total elapsed time in ms.
+   * @param {number} delta - Frame delta in ms.
+   */
   update(_time, delta) {
     if (!this.gameState) {
       return;
@@ -122,6 +144,9 @@ export class GameScene extends Phaser.Scene {
     this.handleAutosave(delta);
   }
 
+  /**
+   * Sync Phaser sprites to the pure game state.
+   */
   syncSprites() {
     this.playerSprite.setPosition(
       this.gameState.player.position.x,
@@ -160,6 +185,9 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * Refresh HUD text and completion status.
+   */
   updateHud() {
     const remaining = this.gameState.enemies.filter(
       (enemy) => enemy.state !== "captured"
@@ -177,6 +205,10 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Schedule autosave and key save events.
+   * @param {number} delta - Frame delta in ms.
+   */
   handleAutosave(delta) {
     if (!hasConvex()) {
       return;
@@ -200,6 +232,11 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Persist the current game state to Convex.
+   * @param {string} reason - HUD label for the save.
+   * @returns {Promise<void>} When save completes.
+   */
   async persistState(reason) {
     if (this.saveInFlight) {
       return;
