@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { LEVELS, type LevelDefinition } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
+import { type LevelDefinition } from "@/lib/game/LevelDefinition";
 import { GameCanvasClient } from "./GameCanvasClient";
 
 type PlayPageProps = {

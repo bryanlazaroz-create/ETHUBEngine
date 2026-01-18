@@ -6,7 +6,16 @@ import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import type { RapierRigidBody } from "@react-three/rapier";
 import { useGameStore } from "@/lib/game/state";
-import { CONTROL_MAP, CREATURES, LEVELS } from "@/lib/game/constants";
+import { CREATURES } from "@/lib/game/constants";
+
+const CONTROL_MAP = [
+  { name: "forward", keys: ["ArrowUp", "w", "W"] },
+  { name: "backward", keys: ["ArrowDown", "s", "S"] },
+  { name: "left", keys: ["ArrowLeft", "a", "A"] },
+  { name: "right", keys: ["ArrowRight", "d", "D"] },
+  { name: "jump", keys: ["Space"] },
+];
+import { LEVELS } from "@/lib/game/LEVELS.1";
 import HUD from "@/components/game/HUD";
 import PauseMenu from "@/components/game/PauseMenu";
 import LevelLoader from "@/components/game/LevelLoader";
@@ -67,7 +76,7 @@ export default function GameCanvas({ levelId }: GameCanvasProps) {
   const setLevel = useGameStore((state) => state.setLevel);
 
   useEffect(() => {
-    const found = LEVELS.find((level) => level.id === levelId);
+    const found = LEVELS.find((level: { id: string; }) => level.id === levelId);
     if (found) {
       setLevel(found.id);
     }

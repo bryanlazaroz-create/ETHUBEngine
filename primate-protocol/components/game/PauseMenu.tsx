@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useGameStore } from "@/lib/game/state";
-import { LEVELS } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
 import { UI_SFX } from "@/lib/game/audio";
 import { useSoundEffects } from "@/lib/game/useAudio";
 

@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
-import { LEVELS } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
 
 type LevelLoaderProps = {
   levelId: string;

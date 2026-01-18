@@ -2,22 +2,9 @@
 // Game Constants & Types
 // ============================
 
-import { ReactNode } from "react";
-import { LevelId } from "./LevelId";
+import { LevelDefinition } from "./LevelDefinition";
 
 export type GadgetId = "capture-lasso" | "pulse-baton" | "sonic-beacon" | "grapple-line";
-export type LevelDefinition = {
-  id: LevelId;
-  name: string;
-  description: string;
-  objectives: string[];
-  unlocks?: GadgetId;
-  unlocksLabel?: string;
-  assetPath: string;
-  useGltf: boolean;
-  title?: ReactNode;
-};
-
 export type GadgetDefinition = {
   id: GadgetId;
   name: string;

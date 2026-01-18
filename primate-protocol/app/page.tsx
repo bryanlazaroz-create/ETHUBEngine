@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { GADGETS, LEVELS } from "@/lib/game/constants";
+import { GADGETS } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
 import { AuthControls } from "@/components/auth/AuthControls";
 
 export default function Home() {

@@ -1,14 +1,10 @@
-// ============================
-// HUD Component
-// ============================
-
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import { shallow } from "zustand/shallow";
 
 import { useGameStore, selectSaveData } from "@/lib/game/state";
-import { CONTROLS, GADGETS, LEVELS } from "@/lib/game/constants";
+import { CONTROLS, GADGETS } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
 import { isSaveSupported, loadGame, saveGame } from "@/lib/save/save";
 
 export default function HUD() {
@@ -23,7 +19,7 @@ export default function HUD() {
 
   const applySaveData = useGameStore((state) => state.applySaveData);
   const markSaved = useGameStore((state) => state.markSaved);
-  const saveData = useGameStore(selectSaveData, shallow);
+  const saveData = useGameStore(selectSaveData);
 
   /* =========================
      Local UI state
@@ -34,7 +30,7 @@ export default function HUD() {
      Derived data
      ========================= */
   const level = useMemo(
-    () => LEVELS.find((item) => item.id === levelId) ?? null,
+    () => LEVELS.find((item: { id: any; }) => item.id === levelId) ?? null,
     [levelId]
   );
 
@@ -52,7 +48,7 @@ export default function HUD() {
     return CONTROLS.filter(
       (c) =>
         ["Capture", "Stun", "Lure", "Grapple"].includes(c.action)
-          ? gadgetsUnlocked[c.action.toLowerCase() as GadgetId]
+          ? gadgetsUnlocked[c.action.toLowerCase() as keyof typeof gadgetsUnlocked]
           : true
     );
   }, [gadgetsUnlocked]);

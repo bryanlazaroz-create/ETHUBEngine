@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LEVELS } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
 export default function LevelsIndexPage() {

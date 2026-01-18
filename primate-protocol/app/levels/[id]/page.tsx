@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { LEVELS, type LevelDefinition } from "@/lib/game/constants";
+import { LEVELS } from "@/lib/game/LEVELS.1";
+import { type LevelDefinition } from "@/lib/game/LevelDefinition";
 
 type PageProps = {
   params: Promise<{ id: string }>;
