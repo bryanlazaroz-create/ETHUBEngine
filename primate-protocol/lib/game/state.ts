@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import type { GadgetId } from "@/lib/game/constants";
-import type { LevelId } from "./LevelId";
+import type { GadgetId } from "@/lib/game/constants"; // Removed LevelId
 import type { GameSaveData } from "@/lib/save/save";
+import { GameState } from "@/convex/saves";
 
 export type Vec3 = [number, number, number];
 
@@ -20,33 +20,6 @@ export type GadgetEvent = {
   origin: Vec3;
   radius: number;
   timestamp: number;
-};
-
-type GameState = {
-  isPaused: boolean;
-  activeLevelId: LevelId;
-  playerPosition: Vec3;
-  playerVelocity: Vec3;
-  gadgetsUnlocked: Record<GadgetId, boolean>;
-  activeGadget: GadgetId;
-  gadgetEvent: GadgetEvent | null;
-  gadgetEventId: number;
-  creatures: Record<string, CreatureState>;
-  capturedCount: number;
-  lastSaveAt: number | null;
-  togglePause: () => void;
-  setPaused: (isPaused: boolean) => void;
-  setLevel: (levelId: LevelId) => void;
-  updatePlayerState: (position: Vec3, velocity: Vec3) => void;
-  unlockGadget: (gadgetId: GadgetId) => void;
-  setActiveGadget: (gadgetId: GadgetId) => void;
-  registerCreature: (creatureId: string) => void;
-  stunCreature: (creatureId: string, durationMs: number) => void;
-  captureCreature: (creatureId: string) => void;
-  clearCreatureStun: (creatureId: string) => void;
-  triggerGadgetEvent: (type: GadgetId, origin: Vec3, radius: number) => void;
-  markSaved: (timestamp: number) => void;
-  applySaveData: (data: GameSaveData) => void;
 };
 
 const defaultGadgets: Record<GadgetId, boolean> = {

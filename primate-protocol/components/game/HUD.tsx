@@ -6,7 +6,6 @@ import { shallow } from "zustand/shallow";
 import { useGameStore, selectSaveData } from "@/lib/game/state";
 import { CONTROLS, GADGETS, LEVELS } from "@/lib/game/constants";
 import { isSaveSupported, loadGame, saveGame } from "@/lib/save/save";
-import type { GadgetId } from "@/lib/game/types";
 
 export default function HUD() {
   /* =========================
@@ -20,7 +19,7 @@ export default function HUD() {
 
   const applySaveData = useGameStore((state) => state.applySaveData);
   const markSaved = useGameStore((state) => state.markSaved);
-  const saveData = useGameStore(selectSaveData, shallow);
+  const saveData = useGameStore(selectSaveData);
 
   /* =========================
      Local UI state
@@ -117,7 +116,7 @@ export default function HUD() {
             Level
           </p>
           <p className="text-sm font-semibold text-white">
-            {level?.title ?? level?.name ?? "Unknown"}
+            {level?.name ?? "Unknown"}
           </p>
           <p className="text-[11px] text-slate-400">
             Captured: {capturedCount}
